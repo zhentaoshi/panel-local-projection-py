@@ -1,16 +1,19 @@
 # panel-local-projection (Python)
 
-Python port of the R package [`zhentaoshi/panel-local-projection`](https://github.com/zhentaoshi/panel-local-projection), focused on matching the original `panelLP()` estimator workflow and outputs.
+This repository provides a Python implementation of the R package [`zhentaoshi/panel-local-projection`](https://github.com/zhentaoshi/panel-local-projection), implementing the panel local projection estimator with both Fixed Effects (FE) and Split Panel Jackknife (SPJ) methods.
 
 ## What is implemented
 
+- Independent variable (`Y_name`)
+- Shock variables (`X_name`)
+- Control variables (`c_name`)
 - FE estimator (`method="FE"`)
 - SPJ estimator (`method="SPJ"`)
-- Individual-clustered standard errors
+- Time effect (`te=True`)
 - Two-way clustered standard errors (`twc=True`)
 - Driscoll-Kraay style standard errors (`dk=True`)
 - Automatic horizon generation (`H`), lag construction (`lagX`, `lagY`)
-- Cumulative responses (`cumul=True`) with `diff` and `g` options
+- Cumulative responses (`cumul=True`) with `diff` (`True`: the input is assumed to be differenced data) and `g` (`g=0`: forward difference; `g=1`: backward difference) options
 - Dataset loaders for the six CSV files used in the R package vignette
 
 ## Install (local)
@@ -19,7 +22,9 @@ Python port of the R package [`zhentaoshi/panel-local-projection`](https://githu
 pip install -e .
 ```
 
-## Quick start
+## Quick example
+
+This example demonstrates how the function automatically computes the impulse responses for the FE and SPJ estimators given the input parameters lagX, lagY, and H.
 
 ```python
 from panel_local_projection import load_dataset, panel_lp
